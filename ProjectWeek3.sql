@@ -34,11 +34,11 @@ Drop Table If EXISTS Artist;
 go
 Create Table Artist (
 artist_id			Int not null Identity Primary Key,
-artist_fist_name	varchar(20) not null,
+artist_first_name	varchar(20) not null,
 artist_last_name	varchar(20) null,
 );
 Insert Into Artist
-(artist_fist_name, artist_last_name)
+(artist_first_name, artist_last_name)
 Values
 ('ACDC', null),
 ('Busta', 'Rhymes'),
@@ -293,3 +293,61 @@ join DiskStatus
 on CompactDisk.status_id = DiskStatus.status_id
 Where returned_date is null 
 Order by borrowed_date asc;
+
+-- Shows artists sorted by last name, first name, and disk name
+USE disk_inventoryKP
+Select cd_name as 'Disk Name', release_date as 'Release Date', artist_first_name as 'Artist First Name', artist_last_name as 'Artist Last Name' 
+from Artist
+join DiskHasArtist on Artist.artist_id = DiskHasArtist.artist_id
+join CompactDisk on DiskHasArtist.cd_id = CompactDisk.cd_id
+where artist_last_name is not null;
+Go
+
+-- Created view with artist_id, Artist_first_name, artist_last_name
+Create View View_Individual_Artist
+AS
+Select artist_id, artist_first_name, artist_last_name
+from Artist
+Go
+--Shows individual artists first and last name from View
+Select artist_first_name as ' First Name', artist_last_name as 'Last Name'
+from View_Individual_Artist
+Where artist_last_name is not null
+Order by artist_last_name;
+Go
+
+--Drop View View_Individual_Artist
+--Go
+
+-- Shows Group names with release dates and disk names
+Select cd_name as 'Disk Name', release_date as 'Release Date', artist_first_name as 'Band Name'
+from View_Individual_Artist join DiskHasArtist
+on DiskHasArtist.artist_id = View_Individual_Artist.artist_id
+join CompactDisk on CompactDisk.cd_id = DiskHasArtist.cd_id
+Where artist_last_name is null
+Order by 'Band Name', 'Disk Name';
+Go
+
+-- Shows which cds have been borrrowed and who borrowed them, Sorted by First Name, Disk Name, Borrowed Date and Returned Date
+Select borrower_first_name as 'First', borrower_last_name as 'Last', cd_name as ' Disk Name', borrowed_date as 'BorrowedDate', returned_date as ' ReturnedDate'
+from Borrower
+join DiskHasBorrower on Borrower.borrower_id = DiskHasBorrower.borrower_id
+join CompactDisk on DiskHasBorrower.cd_id = CompactDisk.cd_id
+order by borrower_last_name, borrower_first_name, cd_name, borrowed_date, returned_date;
+go
+
+--Shows how many times a disk has been borrowed, what the disk is, and the disk id.
+Select CompactDisk.cd_id as 'Disk ID', cd_name as 'CD Name' , Count(DiskHasBorrower.cd_id) as 'Times Borrowed'
+from DiskHasBorrower
+join CompactDisk on DiskHasBorrower.cd_id = CompactDisk.cd_id
+group by cd_name, CompactDisk.cd_id
+Order by CompactDisk.cd_id;
+Go
+
+-- Show the disks outstanding or on-loan and who has each disk. Sort by disk name.
+Select cd_name as 'Disk Name', borrowed_date as 'Borrowed', returned_date as 'Returned', borrower_last_name as 'Last Name'
+from Borrower join DiskHasBorrower on Borrower.borrower_id = DiskHasBorrower.borrower_id
+join CompactDisk on DiskHasBorrower.cd_id = CompactDisk.cd_id
+Where returned_date is null
+Order by cd_name;
+Go
