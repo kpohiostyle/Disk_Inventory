@@ -5,6 +5,9 @@
 * Kevin Powell			10/9/2019
 *						10/10/2019
 *						10/11/2019
+*						10/15/2019
+*						10/16/2019
+*						10/17/2019
 ********************************************/
 --remove database if exists
 DROP DATABASE IF EXISTS disk_inventoryKP;
@@ -304,6 +307,9 @@ where artist_last_name is not null;
 Go
 
 -- Created view with artist_id, Artist_first_name, artist_last_name
+Drop View If Exists View_Individual_Artist
+Go
+ 
 Create View View_Individual_Artist
 AS
 Select artist_id, artist_first_name, artist_last_name
@@ -316,16 +322,13 @@ Where artist_last_name is not null
 Order by artist_last_name;
 Go
 
---Drop View View_Individual_Artist
---Go
-
 -- Shows Group names with release dates and disk names
-Select cd_name as 'Disk Name', release_date as 'Release Date', artist_first_name as 'Band Name'
+Select cd_name as 'Disk Name', release_date as 'Release Date', artist_first_name as 'Group Name'
 from View_Individual_Artist join DiskHasArtist
 on DiskHasArtist.artist_id = View_Individual_Artist.artist_id
 join CompactDisk on CompactDisk.cd_id = DiskHasArtist.cd_id
 Where artist_last_name is null
-Order by 'Band Name', 'Disk Name';
+Order by 'Group Name', 'Disk Name';
 Go
 
 -- Shows which cds have been borrrowed and who borrowed them, Sorted by First Name, Disk Name, Borrowed Date and Returned Date
