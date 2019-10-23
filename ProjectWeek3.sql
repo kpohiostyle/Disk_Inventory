@@ -8,6 +8,8 @@
 *						10/15/2019
 *						10/16/2019
 *						10/17/2019
+*						10/22/2019
+*						10/23/2019
 ********************************************/
 --remove database if exists
 DROP DATABASE IF EXISTS disk_inventoryKP;
@@ -353,4 +355,239 @@ from Borrower join DiskHasBorrower on Borrower.borrower_id = DiskHasBorrower.bor
 join CompactDisk on DiskHasBorrower.cd_id = CompactDisk.cd_id
 Where returned_date is null
 Order by cd_name;
+Go
+
+--Insert Proc for Artist Table
+Drop Proc If Exists sp_InsertArtist
+Go
+ 
+Create Proc sp_InsertArtist
+	@artist_first_name varchar(100),
+	@artist_last_name varchar(100) = NULL
+ AS
+ Begin Try
+INSERT INTO [dbo].[Artist]
+           ([artist_first_name]
+           ,[artist_last_name])
+     VALUES
+           (@artist_first_name, @artist_last_name)
+
+End Try
+Begin Catch
+	Print 'An error occured during Insert'
+	Print 'Error Number: ' + Convert(varchar(200), Error_Number()) + ' Error Message: ' + Convert(varchar(200), Error_Message());
+End Catch
+Go
+
+--Exec for Insert Proc
+Exec sp_InsertArtist 'Tool', Null
+Go
+
+--Update Proc for Artist Table
+Drop Proc If Exists sp_UpdateArtist
+Go
+
+Create Proc sp_UpdateArtist
+	@artist_id int,
+	@artist_first_name varchar(100),
+	@artist_last_name varchar(100)
+As
+
+Begin Try
+	UPDATE [dbo].[Artist]
+	SET [artist_first_name] = @artist_first_name
+      ,[artist_last_name] = @artist_last_name
+	WHERE artist_id = @artist_id
+
+
+End Try
+Begin Catch
+	Print 'An error occured during Insert'
+	Print 'Error Number: ' + Convert(varchar(200), Error_Number()) + ' Error Message: ' + Convert(varchar(200), Error_Message());
+End Catch
+Go
+
+--Exec statement for UpdateArtist
+Exec sp_UpdateArtist @@Identity, 'A Perfect Circle', Null;
+Go
+
+--Delete Proc for Artist Table
+Drop Proc If Exists sp_DeleteArtist
+Go
+Create Proc sp_DeleteArtist
+	@artist_id int
+As
+Begin Try
+DELETE FROM [dbo].[Artist]
+      WHERE artist_id = @artist_id
+
+End Try
+Begin Catch
+	Print 'An error occured during Insert'
+	Print 'Error Number: ' + Convert(varchar(200), Error_Number()) + ' Error Message: ' + Convert(varchar(200), Error_Message());
+End Catch
+Go
+
+--Delete Exec for Artist Table
+	Exec sp_DeleteArtist @@IDENTITY;
+Go
+
+--Insert Proc for Borrower Table
+Drop Proc If Exists sp_InsertBorrower
+Go
+Create Proc sp_InsertBorrower
+	@borrower_first_name varchar(20),
+	@borrower_last_name varchar(20),
+	@phone_number varchar(20)
+As
+Begin Try
+INSERT INTO [dbo].[Borrower]
+           ([borrower_first_name]
+           ,[borrower_last_name]
+           ,[phone_number])
+     VALUES
+           (@borrower_first_name, 
+           @borrower_last_name, 
+           @phone_number )
+End Try
+Begin Catch
+	Print 'An error occured during Insert'
+	Print 'Error Number: ' + Convert(varchar(200), Error_Number()) + ' Error Message: ' + Convert(varchar(200), Error_Message());
+End Catch
+Go
+
+--Insert Exec for Borrower Table
+Exec sp_InsertBorrower 'Stacy', 'Tobias', '208-777-1234';
+Go
+
+--Update Proc for Borrower Table
+Drop Proc If Exists sp_updateBorrower
+Go
+Create Proc sp_UpdateBorrower
+	@borrower_id int,
+	@borrower_first_name varchar(100),
+	@borrower_last_name varchar(100),
+	@phone_number varchar(100)
+As
+Begin Try
+UPDATE [dbo].[Borrower]
+   SET [borrower_first_name] = @borrower_first_name,
+       [borrower_last_name] = @borrower_last_name,
+       [phone_number] = @phone_number
+ WHERE borrower_id = @borrower_id;
+ End Try
+ Begin Catch
+	Print 'An error occured during Insert'
+	Print 'Error Number: ' + Convert(varchar(200), Error_Number()) + ' Error Message: ' + Convert(varchar(200), Error_Message());
+ End Catch
+ Go
+
+ --Update Exec for Borrower Table
+ Exec sp_updateBorrower @@IDENTITY, 'Stacy', 'Barlow', '208-777-5678'
+ Go
+
+ --Delete Proc for Borrower Table
+ Drop Proc If Exists sp_deleteBorrower
+ Go
+
+ Create Proc sp_deleteBorrower
+	@borrower_id int
+ As
+ Begin Try
+ DELETE FROM [dbo].[Borrower]
+      WHERE borrower_id = @borrower_id;
+End Try
+Begin Catch
+	Print 'An error occured during Insert'
+	Print 'Error Number: ' + Convert(varchar(200), Error_Number()) + ' Error Message: ' + Convert(varchar(200), Error_Message());
+End Catch
+Go
+
+--Delete Exec for Borrower Table
+Exec sp_deleteBorrower @@IDENTITY;
+Go
+
+--Insert Proc for CompactDisk Table
+Drop Proc If Exists sp_insertDisk;
+Go
+Create Proc sp_insertDisk
+	@cd_name varchar(100),
+	@release_date date,
+	@status_id int,
+	@diskType_id int,
+	@genre_id int
+As
+Begin Try
+INSERT INTO [dbo].[CompactDisk]
+           ([cd_name]
+           ,[release_date]
+           ,[status_id]
+           ,[diskType_id]
+           ,[genre_id])
+     VALUES
+           (@cd_name,
+           @release_date,
+           @status_id,
+           @diskType_id,
+           @genre_id)
+End Try
+Begin Catch
+	Print 'An error occured during Insert'
+	Print 'Error Number: ' + Convert(varchar(200), Error_Number()) + ' Error Message: ' + Convert(varchar(200), Error_Message());
+End Catch
+Go
+
+--Insert Exec for CompactDisk Table
+ Exec sp_insertDisk 'Mer de Noms', '2000/05/23', 1, 1, 4
+ Go
+
+ --Update Proc for CompactDisk Table
+ Drop Proc If Exists sp_updateDisk
+ Go
+ Create Proc sp_updateDisk
+	@cd_id int,
+	@cd_name varchar(100),
+	@release_date date,
+	@status_id int,
+	@diskType_id int,
+	  @genre_id int
+As
+Begin Try
+ UPDATE [dbo].[CompactDisk]
+   SET [cd_name] =  @cd_name,
+       [release_date] = @release_date,
+       [status_id] = @status_id,
+       [diskType_id] = @diskType_id,
+       [genre_id] = @genre_id
+ WHERE cd_id = @cd_id;
+End Try
+Begin Catch
+	Print 'An error occured during Insert'
+	Print 'Error Number: ' + Convert(varchar(200), Error_Number()) + ' Error Message: ' + Convert(varchar(200), Error_Message());
+End Catch
+Go
+
+--Update Exec for CompactDisk Table
+Exec sp_updateDisk @@IDENTITY, 'Thirteenth Step', '2003/09/16', 1, 1, 4;
+Go
+
+--Delete Proc for CompactDisk Table
+Drop Proc If Exists sp_deleteDisk
+Go
+
+Create Proc sp_deleteDisk
+	@cd_id int
+As
+Begin Try
+ DELETE FROM [dbo].[CompactDisk]
+      WHERE cd_id = @cd_id;
+End Try
+Begin Catch
+	Print 'An error occured during Insert'
+	Print 'Error Number: ' + Convert(varchar(200), Error_Number()) + ' Error Message: ' + Convert(varchar(200), Error_Message());
+End Catch
+Go
+
+--Delete Exec for CompactDisk Table
+Exec sp_deleteDisk @@IDENTITY;
 Go
