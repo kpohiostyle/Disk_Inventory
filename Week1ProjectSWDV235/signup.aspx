@@ -60,15 +60,15 @@
 
 <head runat="server">
     <title>Untouchables</title>
-    <meta charset="utf-8">
-    <link href='https://fonts.googleapis.com/css?family=Bungee Shade' rel='stylesheet'>
-    <link href='https://fonts.googleapis.com/css?family=Fruktur' rel='stylesheet'>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <meta charset="utf-8"/>
+    <link href='https://fonts.googleapis.com/css?family=Bungee Shade' rel='stylesheet'/>
+    <link href='https://fonts.googleapis.com/css?family=Fruktur' rel='stylesheet'/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="jquery_validate/jquery.validate.min.js"></script>
-    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="styles.css"/>
    
 
 </head>
@@ -99,7 +99,7 @@
 </nav>
 <body>
     <div class="company">
-        <img src="../images/mobster.png" alt="Mobster">
+        <img src="images/mobster.png" alt="Mobster"/>
         <h1>Untouchables</h1>
         <p>'Pizza so good, it'll get ya' whacked'</p>
     </div>
@@ -112,26 +112,32 @@
                 <form id="signup" runat="server">
                     <div>
                         <label for="name" class="label">Name*</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <asp:TextBox ID="name" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="name" runat="server" CausesValidation="True"></asp:TextBox>
+
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="name" ErrorMessage="Please Enter a Name"></asp:RequiredFieldValidator>
 
                     </div>
                     <div>
                         <label for="email" class="label">E-mail Address*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>
-                        &nbsp;<asp:TextBox ID="email" runat="server" CssClass="auto-style1"></asp:TextBox>
+                        &nbsp;<asp:TextBox ID="email" runat="server" CssClass="auto-style1" CausesValidation="True"></asp:TextBox>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="email" ErrorMessage="Please Enter a Valid Email"></asp:RequiredFieldValidator>
                         </div>
                     <div>
-                        <label for="confirm_password" class="label">Confirm Password*&nbsp; </label>&nbsp;
-                        <asp:TextBox ID="confirm_password" runat="server"></asp:TextBox>
+                        <label for="password" class="label">Password*&nbsp; </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <asp:TextBox ID="password" runat="server" CausesValidation="True" ></asp:TextBox>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="password" ErrorMessage="Please enter a password"></asp:RequiredFieldValidator>
                         </div>
                     <div>
-                        <label for="dob" class="label">Date of birth&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>
-&nbsp;
-                        <asp:TextBox ID="dob" runat="server"></asp:TextBox>
+                        <label for="confirm_password" class="label">Confirm Password*&nbsp; </label>&nbsp;<asp:TextBox ID="confirm_password" runat="server" CausesValidation="True"></asp:TextBox>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="confirm_password" ErrorMessage="Please Confirm Password"></asp:RequiredFieldValidator>
                         </div>
                     <div>
-                        <label for="comments" class="label">Comments&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>                       
-                    &nbsp;
-                        <asp:TextBox ID="comments" runat="server"></asp:TextBox>
+                        <label for="dob" class="label">Date of birth&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>&nbsp;<asp:TextBox ID="dob" runat="server" CausesValidation="True"></asp:TextBox>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="dob" ErrorMessage="Please Enter a Date of Birth (mm/dd/yyyy)"></asp:RequiredFieldValidator>
+                        </div>
+                    <div>
+                        <label for="comments" class="label">Comments&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>
+&nbsp;<asp:TextBox ID="comments" runat="server"></asp:TextBox>
                        
                         <br />
                        
