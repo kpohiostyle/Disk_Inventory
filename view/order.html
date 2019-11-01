@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Untouchables</title>
+	<meta charset="utf-8">
+
+	<link href='https://fonts.googleapis.com/css?family=Bungee Shade' rel='stylesheet'>
+	<link href='https://fonts.googleapis.com/css?family=Fruktur' rel='stylesheet'>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<link rel="stylesheet" href="../styles.css">
+
+<script>
+$(document).ready(function(){
+	$('#veggie').hover(function(){
+		$('#caption1').toggle();
+	});//end mouseenter
+	$('#pepage').hover(function(){
+		$('#caption2').toggle();
+	});//end mouseenter
+	$('#hawiian').hover(function(){
+		$('#caption3').toggle();
+	});//end mouseenter
+	$('#bbq').hover(function(){
+		$('#caption4').toggle();
+	});//end mouseenter
+	$('#cheese').hover(function(){
+		$('#caption5').toggle();
+	});//end mouseenter
+	$('#sausage').hover(function(){
+		$('#caption6').toggle();
+	});//end mouseenter
+	$('#pepperoni').hover(function(){
+		$('#caption7').toggle();
+	});//end mouseenter
+}) //end ready
+</script>
+
+</head>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+		  </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="index.html">Home</a></li>
+        <li><a href="order.html">Order</a></li>			
+        <li><a href="newsletter.html">Newsletter</a></li>     
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="signup.aspx"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+<body id="plain">
+<div class="company">
+  <img src="../images/mobster.png" alt="Mobster">
+	<h1>Untouchables</h1>
+	<p>'Pizza so good, it'll get ya' whacked'</p>
+</div>
+<div id="gallery">
+
+	<figure id="veggie">
+	<img src="../images/veggie.png" alt="">
+	<figcaption id="caption1">Veggie Pizza<button>Order Now</button></figcaption>
+</figure>
+
+<figure id="pepage">
+	<img src="../images/pepage.png"  alt="">
+	<figcaption id="caption2">Pepperoni & Sausage<button>Order Now</button></figcaption>
+</figure>
+
+<figure id="hawiian">
+	<img src="../images/hawiian.png"  alt="">
+	<figcaption id="caption3">Hawaiian Pizza<button>Order Now</button></figcaption>
+</figure>
+
+<figure id="bbq">
+	<img src="../images/bbq.png"  alt="">
+	<figcaption id="caption4">BBQ Pizza<button>Order Now</button></figcaption>
+</figure>
+
+<figure id="cheese">
+	<img src="../images/cheesePizza.png"  alt="">
+	<figcaption id="caption5">Cheese Pizza<button>Order Now</button></figcaption>
+</figure>
+
+<figure id="sausage">
+	<img src="../images/sausage.png"  alt="">
+	<figcaption id="caption6">Sausage Pizza<button>Order Now</button></figcaption>
+</figure>
+
+<figure id="pepperoni">
+	<img src="../images/pepperoni.png"  alt="">
+	<figcaption id="caption7">Pepperoni Pizza<button>Order Now</button></figcaption>
+</figure>
+
+</div>
+</body>
+
+</html>
