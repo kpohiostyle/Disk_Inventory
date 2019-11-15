@@ -18,15 +18,49 @@ namespace ProjectWeek2
         {
             if (IsValid)
             {
-                Label5.Text = "The Information Has Been <br /> Added Successfully. Add Another Borrower";
-                borrowerFName.Text = "";
-                borrowerLName.Text = "";
-                borrowerPNumber.Text = "";
+                var parameters = SqlDataSource1.InsertParameters;
+                parameters["borrower_first_name"].DefaultValue = borrowerFName.Text;
+                parameters["borrower_last_name"].DefaultValue = borrowerLName.Text;
+                parameters["phone_number"].DefaultValue = borrowerPNumber.Text;
+
+                try
+                {
+                    SqlDataSource1.Insert();
+                    borrowerFName.Text = "";
+                    borrowerLName.Text = "";
+                    borrowerPNumber.Text = "";
+                    Label5.Text = "";
+                }
+                catch (Exception ex)
+                {
+                    Label5.Text = DatabaseErrorMessage(ex.Message);
+                }
             }
-            else
+        }
+        protected void grdBorrower_RowUpdated(object sender, GridViewUpdatedEventArgs e)
+        {
+            if (e.Exception != null)
             {
-                Label5.Text = "Please Fix Any Errors And Submit Again";
+                Label5.Text = DatabaseErrorMessage(e.Exception.Message);
+                e.ExceptionHandled = true;
+                e.KeepInEditMode = true;
+                
             }
+            
+        }
+
+        protected void grdBorrower_RowDeleted(object sender, GridViewDeletedEventArgs e)
+        {
+            if (e.Exception != null)
+            {
+                Label5.Text = DatabaseErrorMessage(e.Exception.Message);
+                e.ExceptionHandled = true;
+            }
+            
+        }
+        private string DatabaseErrorMessage(string errorMsg)
+        {
+            return $"<b>A database error has occurred:</b> {errorMsg}";
         }
     }
 }

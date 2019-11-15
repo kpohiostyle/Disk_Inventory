@@ -20,13 +20,9 @@ form {
     width: 80%;
     height: 80%;
 }
-.custom {
-    padding: .5rem;
-    height: 3rem;
-    margin-left: 2rem;
-    border-radius: 1rem;
+.h1Borrower {
+    text-align: center;
 }
-
 /* Set widths on the form inputs since otherwise they're 100% wide */
 input,
 select,
