@@ -13,7 +13,7 @@
         <div class="col-md-4">
             <h2>Add or Update a borrower</h2>
             <p>
-               <a href="~/Maintance/borrower.aspx" class="btn btn-primary btn-lg">Borrower Page &raquo;</a>
+               <a href="Maintance/borrower.aspx" class="btn btn-primary btn-lg">Borrower Page &raquo;</a>
             </p>
             <p>
              
@@ -22,7 +22,7 @@
         <div class="col-md-4">
             <h2>Add or update a disk </h2>
             <p>
-                <a href="~/Maintance/disc.aspx" class="btn btn-primary btn-lg">Disk Page &raquo;</a>
+                <a href="Maintance/disc.aspx" class="btn btn-primary btn-lg">Disk Page &raquo;</a>
             </p>
             <p>
                 
@@ -31,7 +31,7 @@
         <div class="col-md-4">
             <h2>Add or update and artist</h2>
             <p>
-                <a href="~/Maintance/artist.aspx" class="btn btn-primary btn-lg">Artist Page &raquo;</a>
+                <a href="Maintance/artist.aspx" class="btn btn-primary btn-lg">Artist Page &raquo;</a>
             </p>
             <p>
                 
